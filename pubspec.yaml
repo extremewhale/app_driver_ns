@@ -1,0 +1,91 @@
+name: app_driver_ns
+description: A new Flutter project.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.5 <4.0.0"
+
+dependencies:
+  animate_do: ^3.0.0
+  audioplayers: ^5.2.0
+  cloud_firestore: ^4.11.0
+  cupertino_icons: ^1.0.6
+  dio: ^4.0.0
+  faker: ^2.1.0
+  firebase_auth: ^4.6.1
+  firebase_core: ^2.13.0
+  firebase_messaging: ^14.7.1
+  flutter_phone_direct_caller: ^2.1.1
+  flutter:
+    sdk: flutter
+  flutter_local_notifications: ^16.1.0
+  flutter_html: ^3.0.0-beta.2
+  flutter_localizations:
+    sdk: flutter
+  flutter_polyline_points: ^2.0.0
+  flutter_rating_bar: ^4.0.1
+  flutter_svg: ^1.0.3
+  freezed_annotation: ^0.14.1
+  geoflutterfire2: ^2.3.15
+  geolocator: ^10.1.0
+  get: ^4.6.1
+  get_storage: ^2.0.3
+  google_maps_flutter: ^2.0.6
+  google_sign_in: ^6.1.5
+  grouped_list: ^4.0.0
+  image_picker: ^0.8.4+1
+  location: ^5.0.3
+  logger: ^1.0.0
+  lottie: ^1.0.1
+  maps_curved_line: ^1.0.2
+  mask_text_input_formatter: ^2.0.0
+  modal_bottom_sheet: ^3.0.0-pre
+  permission_handler: ^11.0.1
+  photo_view: ^0.14.0
+  pin_code_fields: ^7.3.0
+  rxdart: ^0.27.3
+  shared_preferences: ^2.0.7
+  skeleton_text: ^3.0.0
+  sleek_circular_slider: ^2.0.0
+  slide_to_act: ^2.0.1
+  sliding_up_panel: ^2.0.0+1
+  sms_autofill: ^2.3.0
+  url_launcher: ^6.0.6
+  webview_flutter: ^4.4.1
+  intl: ^0.18.0
+  #webview_flutter_plus: ^0.3.0+2
+
+dev_dependencies:
+  firebase_auth_web: ^5.8.3
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/flags/
+    - assets/img/
+    - assets/sounds/
+    - assets/lottie/
+    - assets/icons/
+
+  fonts:
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik/Rubik-Light.ttf
+          weight: 200
+        - asset: assets/fonts/Rubik/Rubik-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Rubik/Rubik-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Rubik/Rubik-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Rubik/Rubik-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Rubik/Rubik-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Rubik/Rubik-Black.ttf
+          weight: 900

@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "464273438621",
+    "firebase_url": "https://taxiwaa-9303e-default-rtdb.firebaseio.com",
+    "project_id": "taxiwaa-9303e",
+    "storage_bucket": "taxiwaa-9303e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464273438621:android:bf693e241e725e2ba16174",
+        "android_client_info": {
+          "package_name": "com.taxiwaa.app_driver_ns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464273438621-jl7adtf1h299ue5s6a8q2k22kgdm6o6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_driver_ns",
+            "certificate_hash": "1378b75ddb7de31705d0df7ffca1b0743efc0d39"
+          }
+        },
+        {
+          "client_id": "464273438621-qmg59acgsd3sa5arana9qoen6ddsgkop.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_driver_ns",
+            "certificate_hash": "6d0dbeca5737621ccee007b2e6ecd3f5d533c1cc"
+          }
+        },
+        {
+          "client_id": "464273438621-s8p0q42a53ikpqo8bf4k1r9smjbhpcj8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_driver_ns",
+            "certificate_hash": "cd2bc7b1605798df2c17dfcccf8ad0b8fdd6c9f1"
+          }
+        },
+        {
+          "client_id": "464273438621-853cah7fnair1cha1pitgrik3j7c64v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAADbXao-8m5jDTabQsV_phADqqjiXNP4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464273438621-853cah7fnair1cha1pitgrik3j7c64v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "464273438621-ltm1pie1nmu5iqueq56863hk3hut2meg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.taxiguaa.appTaxista"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464273438621:android:14a730ff3b06b535a16174",
+        "android_client_info": {
+          "package_name": "com.taxiwaa.app_pasajero_ns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464273438621-bt2s43vukdf8s5i9rrclap24k32tscsi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_pasajero_ns",
+            "certificate_hash": "cd2bc7b1605798df2c17dfcccf8ad0b8fdd6c9f1"
+          }
+        },
+        {
+          "client_id": "464273438621-jg4dhp1qd7dvtt5dl3s11g1temud87p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_pasajero_ns",
+            "certificate_hash": "6d0dbeca5737621ccee007b2e6ecd3f5d533c1cc"
+          }
+        },
+        {
+          "client_id": "464273438621-liqsv2cnnlkh7u7vgukfson07b88love.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.taxiwaa.app_pasajero_ns",
+            "certificate_hash": "1378b75ddb7de31705d0df7ffca1b0743efc0d39"
+          }
+        },
+        {
+          "client_id": "464273438621-853cah7fnair1cha1pitgrik3j7c64v5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAADbXao-8m5jDTabQsV_phADqqjiXNP4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464273438621-853cah7fnair1cha1pitgrik3j7c64v5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "464273438621-ltm1pie1nmu5iqueq56863hk3hut2meg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.taxiguaa.appTaxista"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
