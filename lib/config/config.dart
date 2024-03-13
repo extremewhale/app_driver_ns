@@ -1,6 +1,6 @@
 class Config {
-  //static const URL_API_BACKEND = 'http://178.128.158.138:8091';
-  static const URL_API_BACKEND = 'http://192.168.100.11:3000';
+  static const URL_API_BACKEND = 'http://178.128.158.138:8091';
+  //static const URL_API_BACKEND = 'http://192.168.100.11:3000';
   static const URL_API_GAMANET = 'http://api2.gamanet.pe/smssend';
   static const API_CARD_GAMANET = '6580052761';
   static const API_KEY_GAMANET = 'MBZ4VLQHGCKZ';
