@@ -11,14 +11,14 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MisViajesDetalleController extends GetxController
+class MisIngresosDetalleController extends GetxController
     with WidgetsBindingObserver {
   // Instances
-  late MisViajesDetalleController _self;
+  late MisIngresosDetalleController _self;
   final _polylinePointsLib = PolylinePoints();
 
   // Data
-  ServicioModel? data;
+  ServicioModelItem? data;
 
   // Mapa
   bool existsPosition = true;
@@ -76,12 +76,12 @@ class MisViajesDetalleController extends GetxController
   }
 
   Future<void> _init() async {
-    if (!(Get.arguments is MisViajesDetalleArguments)) {
+    if (!(Get.arguments is MisIngresosDetalleArguments)) {
       Helpers.showError('Error recibiendo los argumentos');
       return;
     }
 
-    final arguments = Get.arguments as MisViajesDetalleArguments;
+    final arguments = Get.arguments as MisIngresosDetalleArguments;
     data = arguments.servicio;
 
     LatLng? coordsOrigen;
@@ -174,8 +174,8 @@ class MisViajesDetalleController extends GetxController
   }
 }
 
-class MisViajesDetalleArguments {
-  final ServicioModel servicio;
+class MisIngresosDetalleArguments {
+  final ServicioModelItem servicio;
 
-  MisViajesDetalleArguments({required this.servicio});
+  MisIngresosDetalleArguments({required this.servicio});
 }

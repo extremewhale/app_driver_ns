@@ -9,25 +9,28 @@ class ConductorProvider {
 
   Future<ConductorCreateResponse> create(ConductorDto dto) async {
     final params = ConductorCreateOrUpdateParams(
-        idConductor: dto.idConductor,
-        nombres: dto.nombres,
-        apellidos: dto.apellidos,
-        numeroDocumento: dto.numeroDocumento,
-        idTipoDocumento: dto.idTipoDocumento,
-        uid: dto.uid,
-        celular: dto.celular,
-        fechaValidacionCelular: dto.fechaValidacionCelular,
-        correo: dto.correo,
-        idBanco: dto.idBanco,
-        foto: dto.foto,
-        numeroCuenta: dto.numeroCuenta,
-        numeroCuentaInterbancaria: dto.numeroCuentaInterbancaria,
-        licencia: dto.licencia,
-        idEstadoConductor: dto.idEstadoConductor, // 1-Desconectado
-        fcm: dto.fcm,
-        enable: dto.enable,
-        fechaRegistro: dto.fechaRegistro,
-        montoRecarga: 0.toDouble());
+      idConductor: dto.idConductor,
+      nombres: dto.nombres,
+      apellidos: dto.apellidos,
+      numeroDocumento: dto.numeroDocumento,
+      idTipoDocumento: dto.idTipoDocumento,
+      uid: dto.uid,
+      celular: dto.celular,
+      fechaValidacionCelular: dto.fechaValidacionCelular,
+      correo: dto.correo,
+      idBanco: dto.idBanco,
+      foto: dto.foto,
+      numeroCuenta: dto.numeroCuenta,
+      numeroCuentaInterbancaria: dto.numeroCuentaInterbancaria,
+      licencia: dto.licencia,
+      idEstadoConductor: dto.idEstadoConductor, // 1-Desconectado
+      fcm: dto.fcm,
+      enable: dto.enable,
+      fechaRegistro: dto.fechaRegistro,
+      montoRecarga: 0.toDouble(),
+      dni: dto.dni,
+      dniReverso: dto.dniReverso,
+    );
 
     final resp = await _dioClient.post('$_endpoint', data: params.toJson());
     return ConductorCreateResponse.fromJson(resp);
@@ -36,25 +39,28 @@ class ConductorProvider {
   Future<ConductorCreateResponse> update(
       int idConductor, ConductorDto dto) async {
     final params = ConductorCreateOrUpdateParams(
-        idConductor: dto.idConductor,
-        nombres: dto.nombres,
-        apellidos: dto.apellidos,
-        numeroDocumento: dto.numeroDocumento,
-        idTipoDocumento: dto.idTipoDocumento,
-        uid: dto.uid,
-        celular: dto.celular,
-        fechaValidacionCelular: dto.fechaValidacionCelular,
-        correo: dto.correo,
-        idBanco: dto.idBanco,
-        foto: dto.foto,
-        numeroCuenta: dto.numeroCuenta,
-        numeroCuentaInterbancaria: dto.numeroCuentaInterbancaria,
-        licencia: dto.licencia,
-        idEstadoConductor: dto.idEstadoConductor, // 1-Desconectado
-        fcm: dto.fcm,
-        enable: dto.enable,
-        fechaRegistro: dto.fechaRegistro,
-        montoRecarga: 0.toDouble());
+      idConductor: dto.idConductor,
+      nombres: dto.nombres,
+      apellidos: dto.apellidos,
+      numeroDocumento: dto.numeroDocumento,
+      idTipoDocumento: dto.idTipoDocumento,
+      uid: dto.uid,
+      celular: dto.celular,
+      fechaValidacionCelular: dto.fechaValidacionCelular,
+      correo: dto.correo,
+      idBanco: dto.idBanco,
+      foto: dto.foto,
+      numeroCuenta: dto.numeroCuenta,
+      numeroCuentaInterbancaria: dto.numeroCuentaInterbancaria,
+      licencia: dto.licencia,
+      idEstadoConductor: dto.idEstadoConductor, // 1-Desconectado
+      fcm: dto.fcm,
+      enable: dto.enable,
+      fechaRegistro: dto.fechaRegistro,
+      montoRecarga: 0.toDouble(),
+      dni: dto.dni,
+      dniReverso: dto.dniReverso,
+    );
 
     final resp = await _dioClient.put('$_endpoint?id=$idConductor',
         data: params.toJson());

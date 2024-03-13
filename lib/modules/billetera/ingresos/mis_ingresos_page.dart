@@ -1,7 +1,8 @@
 import 'package:app_driver_ns/config/config.dart';
 import 'package:app_driver_ns/data/models/servicio.dart';
-import 'package:app_driver_ns/modules/mis_viajes/detalle/mis_viajes_detalle_controller.dart';
-import 'package:app_driver_ns/modules/mis_viajes/mis_viajes_controller.dart';
+import 'package:app_driver_ns/modules/billetera/detalle_ingresos/mis_ingresos_detalle_controller.dart';
+import 'package:app_driver_ns/modules/billetera/ingresos/mis_ingresos_controller.dart';
+
 import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
 import 'package:app_driver_ns/utils/utils.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class MisViajesPage extends StatelessWidget {
-  final _conX = Get.put(MisViajesController());
+class MisIngresosPage extends StatelessWidget {
+  final _conX = Get.put(MisIngresosController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +20,18 @@ class MisViajesPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: akPrimaryColor),
         title: Text(
-          'Mis viajes',
+          'Mis Ingresos',
           style: TextStyle(color: akPrimaryColor),
         ),
       ),
       body: Container(
         child: Column(
           children: [
-          
             SizedBox(height: akContentPadding),
             Content(
               child: Row(
                 children: [
-                  AkText('Lista de tus últimos viajes.'),
+                  AkText('Lista de tus últimos ingresos.'),
                 ],
               ),
             ),
@@ -108,7 +108,7 @@ class _SkeletonItem extends StatelessWidget {
 }
 
 class _ResultList extends StatelessWidget {
-  final MisViajesController conX;
+  final MisIngresosController conX;
 
   const _ResultList({Key? key, required this.conX}) : super(key: key);
 
@@ -143,6 +143,7 @@ class _ListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String destino = servicio.ruta?.nombreDestino ?? '';
+    String ganancia = servicio.costo.toString();
     final arrSplit = destino.split(',');
     if (arrSplit.isNotEmpty) {
       destino = arrSplit[0];
@@ -181,9 +182,9 @@ class _ListItem extends StatelessWidget {
             type: MaterialType.transparency,
             child: InkWell(
               onTap: () async {
-                await Get.delete<MisViajesDetalleController>();
-                Get.toNamed(AppRoutes.MIS_VIAJES_DETALLE,
-                    arguments: MisViajesDetalleArguments(servicio: servicio));
+                await Get.delete<MisIngresosDetalleController>();
+                Get.toNamed(AppRoutes.MIS_INGRESOS_DETALLE,
+                    arguments: MisIngresosDetalleArguments(servicio: servicio));
               },
               child: Container(
                 color: Colors.transparent,
@@ -205,7 +206,7 @@ class _ListItem extends StatelessWidget {
                           ),
                           SizedBox(height: 10.0),
                           AkText(
-                            'Viaje a $destino',
+                            'mi ganancia : $ganancia',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

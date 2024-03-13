@@ -1,5 +1,7 @@
 import 'package:app_driver_ns/data/models/conductor.dart';
 import 'package:app_driver_ns/modules/billetera/billetera_controller.dart';
+import 'package:app_driver_ns/modules/billetera/detalle_ingresos/mis_ingresos_detalle_controller.dart';
+import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
 import 'package:app_driver_ns/utils/utils.dart';
 import 'package:app_driver_ns/widgets/widgets.dart';
@@ -36,6 +38,9 @@ class BilleteraPage extends StatelessWidget {
             Obx(() =>
                 TabMonto("Tus ganancias del día: ", _conX.totalefectivo.value)),
             Obx(() => TabMonto("Saldo actual: ", _conX.saldoactual.value)),
+            TabRecargar("Recargar"),
+            TabMisIngresos("Mis ingresos")
+
             // Expanded(
             //   child: Container(
             //     width: double.infinity,
@@ -76,11 +81,11 @@ class BilleteraPage extends StatelessWidget {
           child: Material(
             type: MaterialType.transparency,
             child: InkWell(
-              onTap: () async {
+              onTap: () {
                 // await Get.delete<MisViajesDetalleController>();
-                // Get.toNamed(AppRoutes.MIS_VIAJES_DETALLE,
-                //     arguments: MisViajesDetalleArguments(servicio: servicio));
-                print("tab");
+                //  Get.toNamed(AppRoutes.MIS_VIAJES_DETALLE,
+                //arguments: MisViajesDetalleArguments(servicio: servicio));
+                print('tab');
               },
               child: Container(
                 color: Colors.transparent,
@@ -122,6 +127,132 @@ class BilleteraPage extends StatelessWidget {
                               Icon(Icons.arrow_forward_ios_sharp)
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container TabRecargar(String etiqueta) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: akWhiteColor,
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xFF8B8D8D).withOpacity(.10),
+            offset: Offset(0, 4),
+            spreadRadius: 4,
+            blurRadius: 8,
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: _conX.goToPageRecargar,
+              child: Container(
+                color: Colors.transparent,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(akContentPadding * 0.76),
+                      child: Row(
+                        children: [
+                          Icon(Icons.add),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          AkText(
+                            etiqueta,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: akTitleColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: akFontSize,
+                              height: 1.4,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(),
+                          ),
+                          Icon(Icons.arrow_forward_ios_sharp)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container TabMisIngresos(String etiqueta) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: akWhiteColor,
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xFF8B8D8D).withOpacity(.10),
+            offset: Offset(0, 4),
+            spreadRadius: 4,
+            blurRadius: 8,
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: Container(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: _conX.goToPageMisIngresos,
+              child: Container(
+                color: Colors.transparent,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(akContentPadding * 0.76),
+                      child: Row(
+                        children: [
+                          Icon(Icons.attach_money),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          AkText(
+                            etiqueta,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: akTitleColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: akFontSize,
+                              height: 1.4,
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(),
+                          ),
+                          Icon(Icons.arrow_forward_ios_sharp)
                         ],
                       ),
                     ),

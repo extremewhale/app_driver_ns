@@ -1,7 +1,7 @@
 import 'package:app_driver_ns/modules/travel/travel_controller.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 
@@ -44,7 +44,13 @@ class EmergencyOptions extends StatelessWidget {
             // type: AkButtonType.outline,
             onPressed: () async {
               const number = '105';
-              await FlutterPhoneDirectCaller.callNumber(number);
+              String url = 'tel:$number';
+              Uri uri = Uri.parse(url);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri);
+              } else {
+                print('error ');
+              }
             },
             text: 'Llamar a 105',
             prefixIcon: Icon(Icons.warning_amber),

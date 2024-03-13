@@ -16,6 +16,7 @@ abstract class AppRoutes {
   // MI CUENTA
   static const PERFIL_INICIO = '/perfil_inicio';
   static const PERFIL_DATOS = '/perfil_datos';
+  static const PERFIL_DNI_DETAILS = '/perfil_dni';
   static const PERFIL_BANCO = '/perfil_banco';
   static const PERFIL_EMAIL_DETAILS = '/perfil_email_details';
   static const PERFIL_LICENCIA = '/perfil_licencia';
@@ -56,4 +57,7 @@ abstract class AppRoutes {
   static const MIS_VIAJES_DETALLE = '/mis_viajes_detalle';
 
   static const MI_BILLETERA = '/mi_billetera';
+  static const RECARGA = '/recarga';
+  static const MIS_INGRESOS = '/mis_ingresos';
+  static const MIS_INGRESOS_DETALLE = '/mis_ingresos_detalle';
 }

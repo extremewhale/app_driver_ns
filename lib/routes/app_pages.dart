@@ -1,4 +1,7 @@
 import 'package:app_driver_ns/modules/billetera/billetera_page.dart';
+import 'package:app_driver_ns/modules/billetera/detalle_ingresos/mis_ingresos_detalle_page.dart';
+import 'package:app_driver_ns/modules/billetera/ingresos/mis_ingresos_page.dart';
+import 'package:app_driver_ns/modules/billetera/recargar/recarga_page.dart';
 import 'package:app_driver_ns/modules/cancelacion/cancelado/cancelacion_servicio_page.dart';
 import 'package:app_driver_ns/modules/contact/contact_page.dart';
 import 'package:app_driver_ns/modules/faq/faq_binding.dart';
@@ -10,6 +13,7 @@ import 'package:app_driver_ns/modules/mis_viajes/mis_viajes_page.dart';
 import 'package:app_driver_ns/modules/misc/error/misc_error_page.dart';
 import 'package:app_driver_ns/modules/perfil/banco/perfil_banco_page.dart';
 import 'package:app_driver_ns/modules/perfil/datos/perfil_datos_page.dart';
+import 'package:app_driver_ns/modules/perfil/dni_details/perfil_dni_details_page.dart';
 import 'package:app_driver_ns/modules/perfil/email_details/perfil_email_details_page.dart';
 import 'package:app_driver_ns/modules/perfil/inicio/perfil_inicio_page.dart';
 import 'package:app_driver_ns/modules/perfil/licencia/perfil_licencia_page.dart';
@@ -66,6 +70,12 @@ class AppPages {
       page: () => PerfilDatosPage(),
       transition: _transition,
     ),
+    GetPage(
+      name: AppRoutes.PERFIL_DNI_DETAILS,
+      page: () => PerfilDniDetailsPage(),
+      transition: _transition,
+    ),
+
     GetPage(
       name: AppRoutes.PERFIL_BANCO,
       page: () => PerfilBancoPage(),
@@ -208,7 +218,22 @@ class AppPages {
       page: () => BilleteraPage(),
       transition: _transition,
     ),
-   
+    GetPage(
+      name: AppRoutes.RECARGA,
+      page: () => RecargaPage(),
+      transition: _transition,
+    ),
+    GetPage(
+      name: AppRoutes.MIS_INGRESOS,
+      page: () => MisIngresosPage(),
+      transition: _transition,
+    ),
+    GetPage(
+      name: AppRoutes.MIS_INGRESOS_DETALLE,
+      page: () => MisIngresosDetallePage(),
+      transition: _transition,
+    ),
+
     GetPage(
       name: AppRoutes.CANCELACION_SERVICIO,
       page: () => CancelacionRevisionPage(),

@@ -1,21 +1,20 @@
-import 'package:app_driver_ns/data/models/conductor.dart';
-import 'package:app_driver_ns/data/providers/conductor_provider.dart';
-import 'package:app_driver_ns/modules/auth/auth_controller.dart';
+import 'package:app_driver_ns/data/models/servicio.dart';
+import 'package:app_driver_ns/data/providers/servicio_provider.dart';
 import 'package:app_driver_ns/modules/misc/error/misc_error_controller.dart';
 import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/utils/utils.dart';
 import 'package:get/get.dart';
 
-class BilleteraController extends GetxController {
+class MisIngresosController extends GetxController {
   // Instances
-  late BilleteraController _self;
-  final _authX = Get.find<AuthController>();
-  final _conductorProvider = ConductorProvider();
+  late MisIngresosController _self;
+  final _servicioProvider = ServicioProvider();
+  DateTime? selectedStartDate;
+  DateTime? selectedEndDate;
 
   final fetching = true.obs;
 
-  List<Transaccione> lista = [];
-  //final total = "".obs;
+  List<ServicioModelItem> lista = [];
 
   @override
   void onInit() {
@@ -29,32 +28,14 @@ class BilleteraController extends GetxController {
     _fetchList();
   }
 
-  final pendientepago = "".obs;
-  final totalefectivo = "".obs;
-  final saldoactual = "".obs;
-
-  void goToPageRecargar() {
-    Get.toNamed(AppRoutes.RECARGA);
-  }
-
-  void goToPageMisIngresos() {
-    Get.toNamed(AppRoutes.MIS_INGRESOS);
-  }
-
   Future<void> _fetchList() async {
     String? errorMsg;
     lista = [];
     try {
       fetching.value = true;
       await Helpers.sleep(600);
-
-      final resp = await _conductorProvider
-          .getBilleteraConductor(_authX.backendUser!.idConductor);
-      pendientepago.value = resp.pendientepago!;
-      totalefectivo.value = resp.totalefectivo!;
-      saldoactual.value = resp.saldoactual!;
-
-      // lista = resp.transacciones!.toList();
+      final resp = await _servicioProvider.getByClient();
+      lista = resp.content.reversed.toList();
     } on ApiException catch (e) {
       errorMsg = e.message;
       Helpers.logger.e(e.message);

@@ -372,6 +372,14 @@ class _LayerInicial extends StatelessWidget {
                                               ? AkText(
                                                   '• Sube tu foto de perfil')
                                               : SizedBox(),
+                                          _conX.isDniIncomplete.value
+                                              ? AkText(
+                                                  '• Completa tu foto de Dni')
+                                              : SizedBox(),
+                                          _conX.isDniIncomplete.value
+                                              ? AkText(
+                                                  '• Completa tu foto de Dni de Reversa')
+                                              : SizedBox(),
                                           _conX.isBankIncomplete.value
                                               ? AkText(
                                                   '• Completa tu cuenta bancaria')

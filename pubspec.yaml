@@ -17,11 +17,10 @@ dependencies:
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
   firebase_messaging: ^14.7.1
-  flutter_phone_direct_caller: ^2.1.1
   flutter:
     sdk: flutter
-  flutter_local_notifications: ^16.1.0
   flutter_html: ^3.0.0-beta.2
+  flutter_local_notifications: ^16.1.0
   flutter_localizations:
     sdk: flutter
   flutter_polyline_points: ^2.0.0
@@ -31,11 +30,12 @@ dependencies:
   geoflutterfire2: ^2.3.15
   geolocator: ^10.1.0
   get: ^4.6.1
-  get_storage: ^2.0.3
+  get_storage: ^2.1.1
   google_maps_flutter: ^2.0.6
   google_sign_in: ^6.1.5
   grouped_list: ^4.0.0
   image_picker: ^0.8.4+1
+  intl: ^0.18.0
   location: ^5.0.3
   logger: ^1.0.0
   lottie: ^1.0.1
@@ -54,8 +54,6 @@ dependencies:
   sms_autofill: ^2.3.0
   url_launcher: ^6.0.6
   webview_flutter: ^4.4.1
-  intl: ^0.18.0
-  #webview_flutter_plus: ^0.3.0+2
 
 dev_dependencies:
   firebase_auth_web: ^5.8.3

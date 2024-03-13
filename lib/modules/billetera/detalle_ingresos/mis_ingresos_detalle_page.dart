@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app_driver_ns/config/config.dart';
+import 'package:app_driver_ns/modules/billetera/detalle_ingresos/mis_ingresos_detalle_controller.dart';
 import 'package:app_driver_ns/modules/mis_viajes/detalle/mis_viajes_detalle_controller.dart';
 import 'package:app_driver_ns/modules/mis_viajes/mis_viajes_page.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MisViajesDetallePage extends StatelessWidget {
-  final _conX = Get.put(MisViajesDetalleController());
+class MisIngresosDetallePage extends StatelessWidget {
+  final _conX = Get.put(MisIngresosDetalleController());
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +121,7 @@ class MisViajesDetallePage extends StatelessWidget {
   }
 
   Widget _buildMapa() {
-    return GetBuilder<MisViajesDetalleController>(
+    return GetBuilder<MisIngresosDetalleController>(
       id: _conX.gbOnlyMap,
       builder: (_) {
         return _conX.existsPosition
@@ -148,7 +149,7 @@ class MisViajesDetallePage extends StatelessWidget {
   }
 
   Widget _buildMarkers() {
-    return GetBuilder<MisViajesDetalleController>(
+    return GetBuilder<MisIngresosDetalleController>(
       id: _conX.gbMarkers,
       builder: (_) {
         return Transform.translate(

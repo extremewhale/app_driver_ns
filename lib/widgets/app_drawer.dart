@@ -1,9 +1,11 @@
 part of 'widgets.dart';
 
+
 class AppDrawer extends StatelessWidget {
   AppDrawer({Key? key, required this.drawerKey}) : super(key: key);
 
   final GlobalKey<ScaffoldState> drawerKey;
+
 
   final _appX = Get.find<AppPrefsController>();
   final _authX = Get.find<AuthController>();

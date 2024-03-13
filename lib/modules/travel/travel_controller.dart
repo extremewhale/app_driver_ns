@@ -28,7 +28,7 @@ import 'package:app_driver_ns/utils/utils.dart';
 import 'package:app_driver_ns/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -128,6 +128,7 @@ class TravelController extends GetxController with WidgetsBindingObserver {
 
     _init();
   }
+ 
 
   @override
   void onClose() {
@@ -844,7 +845,13 @@ class TravelController extends GetxController with WidgetsBindingObserver {
 
   void call105() async {
     const number = '105';
-    await FlutterPhoneDirectCaller.callNumber(number);
+    String url = 'tel:$number';
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      print('error ');
+    }
   }
 
   final _sosservicioProvider = SosservicioProvider();

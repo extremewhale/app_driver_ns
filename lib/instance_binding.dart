@@ -2,6 +2,7 @@ import 'package:app_driver_ns/config/config.dart';
 import 'package:app_driver_ns/modules/app_prefs/app_prefs_controller.dart';
 import 'package:app_driver_ns/modules/auth/auth_controller.dart';
 import 'package:app_driver_ns/modules/keyboard/keyboard_controller.dart';
+import 'package:app_driver_ns/utils/getx_storage.dart';
 import 'package:app_driver_ns/utils/utils.dart';
 import 'package:app_driver_ns/widgets/widgets.dart';
 import 'package:dio/dio.dart';
@@ -37,13 +38,17 @@ class InstanceBinding extends Bindings {
 }
 
 class AppInterceptors extends InterceptorsWrapper {
+  GetxStorageController _getxStorage = GetxStorageController();
   final _authX = Get.find<AuthController>();
 
   @override
   Future onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    String token = await _getxStorage.read('token') ?? '';
     if (_authX.getUser != null) {
-      options.headers["Authorization"] = Config.TOKEN;
+      options.headers["Authorization"] = token;
+      print('------------- AQUI SE INSTANCIA EL TOKEN --------------- ');
+      print('este es el token : $token ');
     }
 
     return super.onRequest(options, handler);

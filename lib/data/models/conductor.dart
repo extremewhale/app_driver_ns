@@ -11,26 +11,29 @@ ConductorDto conductorDtoFromJson(String str) =>
 String conductorDtoToJson(ConductorDto data) => json.encode(data.toJson());
 
 class ConductorCreateOrUpdateParams {
-  ConductorCreateOrUpdateParams(
-      {required this.idConductor,
-      required this.nombres,
-      required this.apellidos,
-      required this.numeroDocumento,
-      required this.idTipoDocumento,
-      required this.uid,
-      required this.celular,
-      required this.fechaValidacionCelular,
-      required this.correo,
-      required this.idBanco,
-      required this.foto,
-      required this.numeroCuenta,
-      required this.numeroCuentaInterbancaria,
-      required this.licencia,
-      required this.idEstadoConductor,
-      required this.fcm,
-      required this.enable,
-      required this.fechaRegistro,
-      required this.montoRecarga});
+  ConductorCreateOrUpdateParams({
+    required this.idConductor,
+    required this.nombres,
+    required this.apellidos,
+    required this.numeroDocumento,
+    required this.idTipoDocumento,
+    required this.uid,
+    required this.celular,
+    required this.fechaValidacionCelular,
+    required this.correo,
+    required this.idBanco,
+    required this.foto,
+    required this.numeroCuenta,
+    required this.numeroCuentaInterbancaria,
+    required this.licencia,
+    required this.idEstadoConductor,
+    required this.fcm,
+    required this.enable,
+    required this.fechaRegistro,
+    required this.montoRecarga,
+    required this.dni,
+    required this.dniReverso,
+  });
 
   final int idConductor;
   final String? nombres;
@@ -51,29 +54,33 @@ class ConductorCreateOrUpdateParams {
   final int enable;
   final DateTime fechaRegistro;
   final double montoRecarga;
+  final String? dni;
+  final String? dniReverso;
 
   factory ConductorCreateOrUpdateParams.fromJson(Map<String, dynamic> json) =>
       ConductorCreateOrUpdateParams(
-          idConductor: json["idConductor"],
-          nombres: json["nombres"],
-          apellidos: json["apellidos"],
-          numeroDocumento: json["numeroDocumento"],
-          idTipoDocumento: json["idTipoDocumento"],
-          uid: json["uid"],
-          celular: json["celular"],
-          fechaValidacionCelular:
-              DateTime.parse(json["fechaValidacionCelular"]),
-          correo: json["correo"],
-          idBanco: json["idBanco"],
-          foto: json["foto"],
-          numeroCuenta: json["numeroCuenta"],
-          numeroCuentaInterbancaria: json["numeroCuentaInterbancaria"],
-          licencia: json["licencia"],
-          idEstadoConductor: json["idEstadoConductor"],
-          fcm: json["fcm"],
-          enable: json["enable"],
-          fechaRegistro: DateTime.parse(json["fechaRegistro"]),
-          montoRecarga: json["montoRecarga"]);
+        idConductor: json["idConductor"],
+        nombres: json["nombres"],
+        apellidos: json["apellidos"],
+        numeroDocumento: json["numeroDocumento"],
+        idTipoDocumento: json["idTipoDocumento"],
+        uid: json["uid"],
+        celular: json["celular"],
+        fechaValidacionCelular: DateTime.parse(json["fechaValidacionCelular"]),
+        correo: json["correo"],
+        idBanco: json["idBanco"],
+        foto: json["foto"],
+        numeroCuenta: json["numeroCuenta"],
+        numeroCuentaInterbancaria: json["numeroCuentaInterbancaria"],
+        licencia: json["licencia"],
+        idEstadoConductor: json["idEstadoConductor"],
+        fcm: json["fcm"],
+        enable: json["enable"],
+        fechaRegistro: DateTime.parse(json["fechaRegistro"]),
+        montoRecarga: json["montoRecarga"],
+        dni: json["dni"],
+        dniReverso: json["foto"],
+      );
 
   Map<String, dynamic> toJson() => {
         "idConductor": idConductor,
@@ -94,7 +101,9 @@ class ConductorCreateOrUpdateParams {
         "fcm": fcm,
         "enable": enable,
         "fechaRegistro": fechaRegistro.toIso8601String(),
-        "montoRecarga": montoRecarga
+        "montoRecarga": montoRecarga,
+        "dni": dni,
+        "dniReverso": dniReverso
       };
 }
 
@@ -150,6 +159,8 @@ class ConductorDto {
     this.vehiculos,
     required this.fechaRegistro,
     this.montoRecarga,
+    this.dni,
+    this.dniReverso,
   });
 
   final int idConductor;
@@ -172,6 +183,8 @@ class ConductorDto {
   final List<Vehiculo>? vehiculos;
   final DateTime fechaRegistro;
   final double? montoRecarga;
+  final String? dni;
+  final String? dniReverso;
 
   ConductorDto copyWith({
     int? idConductor,
@@ -194,6 +207,8 @@ class ConductorDto {
     List<Vehiculo>? vehiculos,
     DateTime? fechaRegistro,
     double? montoRecarga,
+    String? dni,
+    String? dniReverso,
   }) =>
       ConductorDto(
         idConductor: idConductor ?? this.idConductor,
@@ -220,6 +235,8 @@ class ConductorDto {
         vehiculos: vehiculos ?? this.vehiculos,
         fechaRegistro: fechaRegistro ?? this.fechaRegistro,
         montoRecarga: montoRecarga ?? this.montoRecarga,
+        dni: dni ?? this.dni,
+        dniReverso: dniReverso ?? this.dniReverso,
       );
 
   factory ConductorDto.fromJson(Map<String, dynamic> json) => ConductorDto(
@@ -246,6 +263,8 @@ class ConductorDto {
                 json["vehiculos"].map((x) => Vehiculo.fromJson(x))),
         fechaRegistro: DateTime.parse(json["fechaRegistro"]),
         montoRecarga: json["montoRecarga"].toDouble(),
+        dni: json["dni"],
+        dniReverso: json["dniReverso"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -271,6 +290,8 @@ class ConductorDto {
             : List<dynamic>.from(vehiculos!.map((x) => x.toJson())),
         "fechaRegistro": fechaRegistro.toIso8601String(),
         "montoRecarga": montoRecarga!.toDouble(),
+        "dni": dni,
+        "dniReverso": dniReverso,
       };
 }
 
@@ -341,7 +362,7 @@ class ResponseBilleteraParams {
       this.total_final,
       this.pendientepago});
 
-  final String? saldoactual;
+  late final String? saldoactual;
   final int? conteoviajesdeldia;
   final int? conteoviajesefectivo;
   final String? totalefectivo;

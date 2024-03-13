@@ -10,12 +10,14 @@ import 'package:app_driver_ns/data/providers/login_provider.dart';
 import 'package:app_driver_ns/modules/initial/initial_controller.dart';
 import 'package:app_driver_ns/modules/misc/error/misc_error_controller.dart';
 import 'package:app_driver_ns/routes/app_pages.dart';
+import 'package:app_driver_ns/utils/getx_storage.dart';
 import 'package:app_driver_ns/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  GetxStorageController _getxStorage = GetxStorageController(); // Usa tu clase
   late AuthController _self;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -45,6 +47,10 @@ class AuthController extends GetxController {
   }
 
   Future<void> initCheckSession() async {
+    print('-------------------------------');
+    print('este es el token definitivo : ${Config.TOKEN}');
+    print('-------------------------------');
+
     _checkFirebaseUserSession();
   }
 
@@ -196,6 +202,7 @@ class AuthController extends GetxController {
 
     if (getUser != null) {
       setListenAuthChanges(true);
+      _getxStorage.logout(Get.context!);
       await _auth.signOut();
     } else {
       setListenAuthChanges(true);
@@ -213,8 +220,14 @@ class AuthController extends GetxController {
     String? idToken = await userCredential.user!.getIdToken();
     LoginResponse token = await _loginProvider.getToken(idToken!, "conductor");
     Config.TOKEN = token.token;
+    await _getxStorage.save('token', token.token);
+
+    var justSavedUserData = await _getxStorage.read('token');
+    print('este es el token definitivo : $justSavedUserData');
     //_dioClient.initializeToken(token.token);
+
     Helpers.logger.i('-----ID TOKEN-------');
+
     Helpers.logger.i(token.token);
     //return userCredential;
   }

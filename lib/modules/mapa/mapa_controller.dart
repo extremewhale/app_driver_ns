@@ -6,6 +6,7 @@ import 'package:app_driver_ns/data/models/cancelaciones_solicitudes.dart';
 import 'package:app_driver_ns/data/models/notification_taxi_request.dart';
 import 'package:app_driver_ns/data/models/travel_info.dart';
 import 'package:app_driver_ns/data/providers/cancelaciones_solicitudes_provider.dart';
+import 'package:app_driver_ns/data/providers/conductor_provider.dart';
 import 'package:app_driver_ns/data/providers/geofire_provider.dart';
 import 'package:app_driver_ns/data/providers/servicio_provider.dart';
 import 'package:app_driver_ns/data/providers/travel_info_provider.dart';
@@ -13,6 +14,7 @@ import 'package:app_driver_ns/data/services/shared_prefs_service.dart';
 import 'package:app_driver_ns/modules/auth/auth_controller.dart';
 // import 'package:app_driver_ns/modules/initial/initial_controller.dart';
 import 'package:app_driver_ns/modules/mapa/mapa_page.dart';
+import 'package:app_driver_ns/modules/misc/error/misc_error_controller.dart';
 //import 'package:app_driver_ns/modules/native/background_location.dart';
 import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
@@ -74,6 +76,8 @@ class MapaController extends GetxController
   Position get myPosition => this._myPosition;
   final isConnect = false.obs;
 
+  final saldoactual = "".obs;
+
   // Streams
   StreamSubscription<Position>? _myPositionStream;
   StreamSubscription<DocumentSnapshot>? _statusSubscription;
@@ -97,13 +101,49 @@ class MapaController extends GetxController
   bool isDarkTheme = false;
 
   String nombreConductor = '';
+  final _conductorProvider = ConductorProvider();
 
   @override
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
     _self = this;
+
     _init();
+  }
+
+  Future<void> _fetchList() async {
+    String? errorMsg;
+
+    try {
+      await Helpers.sleep(600);
+
+      final resp = await _conductorProvider
+          .getBilleteraConductor(_authX.backendUser!.idConductor);
+
+      saldoactual.value = resp.saldoactual!;
+
+      // lista = resp.transacciones!.toList();
+    } on ApiException catch (e) {
+      errorMsg = e.message;
+      Helpers.logger.e(e.message);
+    } on BusinessException catch (e) {
+      errorMsg = e.message;
+      Helpers.logger.e(e.message);
+    } catch (e) {
+      errorMsg = 'Ocurrió un error inesperado.';
+      Helpers.logger.e(e.toString());
+    }
+
+    if (_self.isClosed) return;
+    if (errorMsg != null) {
+      final ers = await Get.toNamed(AppRoutes.MISC_ERROR,
+          arguments: MiscErrorArguments(content: errorMsg));
+      if (ers == MiscErrorResult.retry) {
+        await Helpers.sleep(1500);
+        _fetchList();
+      }
+    }
   }
 
   @override
@@ -136,6 +176,7 @@ class MapaController extends GetxController
   // * BEGIN::CONFIGURACIÓN MAPA Y MI POSICIÓN
   // **************************************************
   void _init() async {
+    _fetchList();
     verifyProfileData();
 
     // print('${_authX.backendUser?.fcm ?? ''}');
@@ -330,15 +371,27 @@ class MapaController extends GetxController
   }
 
   void toggleStatus() async {
-    if (isConnect.value) {
-      disconnect();
+    update();
+    final dineroActual = double.parse(saldoactual.value);
+    if (dineroActual > 0.0) {
+      if (isConnect.value) {
+        disconnect();
+      } else {
+        print('Guardando ');
+        await connectToService(_authX.getUser!.uid, myPosition.latitude,
+            myPosition.longitude, myPosition.heading);
+        print('registro');
+        _configPosition();
+      }
     } else {
-      print('Guardando ');
-      await connectToService(_authX.getUser!.uid, myPosition.latitude,
-          myPosition.longitude, myPosition.heading);
-      print('registro');
-      _configPosition();
+      isConnect.value = false;
+      disconnect();
+      Get.snackbar('Recarga necesaria',
+          'Tu saldo actual no es suficiente. Recarga para continuar.');
     }
+
+    print(
+        '  y esta conectado?: $isConnect , y este el dinero del conductor : $dineroActual');
   }
 
   Future<void> connectToService(
@@ -718,11 +771,21 @@ class MapaController extends GetxController
   final isPhotoIncomplete = true.obs;
   final isBankIncomplete = true.obs;
   final isLicenseIncomplete = true.obs;
+  final isDniIncomplete = true.obs;
+  final isDniReverseIncomplete = true.obs;
 
   void verifyProfileData() {
     isPhotoIncomplete.value = !(_authX.backendUser!.foto != null &&
         _authX.backendUser!.foto!.isNotEmpty);
+
+    isDniIncomplete.value = !(_authX.backendUser!.dni != null &&
+        _authX.backendUser!.dni!.isNotEmpty);
+
+    isDniReverseIncomplete.value = !(_authX.backendUser!.dniReverso != null &&
+        _authX.backendUser!.dniReverso!.isNotEmpty);
+
     isBankIncomplete.value = !(_authX.backendUser!.idBanco != null);
+
     isLicenseIncomplete.value = !(_authX.backendUser!.licencia != null &&
         _authX.backendUser!.licencia!.isNotEmpty);
   }
@@ -730,6 +793,12 @@ class MapaController extends GetxController
   void onBannerProfileComplete() {
     if (isPhotoIncomplete.value) {
       Get.toNamed(AppRoutes.PERFIL_DATOS);
+    }
+    if (isDniIncomplete.value) {
+      Get.toNamed(AppRoutes.PERFIL_DNI_DETAILS);
+    }
+    if (isDniReverseIncomplete.value) {
+      Get.toNamed(AppRoutes.PERFIL_DNI_DETAILS);
     } else if (isBankIncomplete.value) {
       Get.toNamed(AppRoutes.PERFIL_BANCO);
     } else if (isLicenseIncomplete.value) {

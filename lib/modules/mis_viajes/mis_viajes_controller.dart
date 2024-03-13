@@ -24,18 +24,6 @@ class MisViajesController extends GetxController {
     _init();
   }
 
-  void filterListByDate() {
-    if (selectedStartDate == null || selectedEndDate == null) return;
-
-    lista = lista.where((servicio) {
-      return servicio.fechaSalida
-              .isAfter(selectedStartDate!.subtract(const Duration(days: 1))) &&
-          servicio.fechaSalida
-              .isBefore(selectedEndDate!.add(const Duration(days: 1)));
-    }).toList();
-    update(); // Para actualizar la vista
-  }
-
   Future<void> _init() async {
     _fetchList();
   }

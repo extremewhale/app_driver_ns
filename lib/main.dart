@@ -11,6 +11,7 @@ import 'package:get_storage/get_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init('app_data');
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -22,14 +23,11 @@ void main() async {
 
   // Ensure that external dependencies are initialized before runApp
   await NotificationService.init();
-  await GetStorage.init();
 
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
-  
   @override
   _MyAppState createState() => _MyAppState();
 }

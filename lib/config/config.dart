@@ -30,5 +30,5 @@ class Config {
     '+51888888888',
     '+51999999999',
   ];
-  static const int SMS_RETRY_TIME = 2;
+  static const int SMS_RETRY_TIME = 30;
 }

@@ -9,17 +9,23 @@ import 'package:app_driver_ns/data/providers/pago_provider.dart';
 import 'package:app_driver_ns/data/providers/servicio_provider.dart';
 import 'package:app_driver_ns/data/providers/travel_info_provider.dart';
 import 'package:app_driver_ns/modules/auth/auth_controller.dart';
+import 'package:app_driver_ns/modules/mapa/mapa_controller.dart';
 import 'package:app_driver_ns/modules/misc/error/misc_error_controller.dart';
 import 'package:app_driver_ns/modules/travel/rating/travel_rating_controller.dart';
 import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:app_driver_ns/data/providers/conductor_provider.dart';
 import 'package:get/get.dart';
 
 class TravelFinishedController extends GetxController {
   late TravelFinishedController _self;
   final AuthController _authX = Get.find<AuthController>();
+
+  final MapaController _mapaController = Get.put(MapaController());
+  final _conductorProvider = ConductorProvider();
   GeofireProvider _geofireProvider = GeofireProvider();
   final _travelInfoProvider = TravelInfoProvider();
   final _conceptoProvider = ConceptoProvider();
@@ -171,6 +177,14 @@ class TravelFinishedController extends GetxController {
   }
 
   void finishPaymentAndContinue() async {
+    final resp = await _conductorProvider
+        .getBilleteraConductor(_authX.backendUser!.idConductor);
+    double montoTotal = double.parse(resp.saldoactual.toString());
+    if (montoTotal <= 0.00) {
+      _mapaController.isConnect.value = false;
+      _mapaController.disconnect();
+    }
+
     final tvl = await _travelInfoProvider.getByUidClient(uidClient!);
     idServicio = tvl!.idServicio;
 
@@ -205,6 +219,13 @@ class TravelFinishedController extends GetxController {
   }
 
   void finishPaymentAndOffline() async {
+    final resp = await _conductorProvider
+        .getBilleteraConductor(_authX.backendUser!.idConductor);
+    double montoTotal = double.parse(resp.saldoactual.toString());
+    if (montoTotal <= 0.00) {
+      _mapaController.isConnect.value = false;
+      _mapaController.disconnect();
+    }
     final tvl = await _travelInfoProvider.getByUidClient(uidClient!);
     idServicio = tvl!.idServicio;
 

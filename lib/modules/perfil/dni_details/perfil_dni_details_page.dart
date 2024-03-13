@@ -1,9 +1,7 @@
-import 'package:app_driver_ns/data/models/app_type.dart';
 import 'package:app_driver_ns/modules/app_prefs/app_prefs_controller.dart';
 import 'package:app_driver_ns/modules/auth/auth_controller.dart';
-import 'package:app_driver_ns/modules/perfil/datos/perfil_datos_controller.dart';
+import 'package:app_driver_ns/modules/perfil/dni_details/perfil_dni_details_controller.dart';
 import 'package:app_driver_ns/modules/requisitos/imagen/requisitos_imagen_controller.dart';
-import 'package:app_driver_ns/modules/requisitos/requisitos_controller.dart';
 import 'package:app_driver_ns/routes/app_pages.dart';
 import 'package:app_driver_ns/themes/ak_ui.dart';
 import 'package:app_driver_ns/utils/utils.dart';
@@ -11,10 +9,10 @@ import 'package:app_driver_ns/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PerfilDatosPage extends StatelessWidget {
-  final _appX = Get.find<AppPrefsController>();
+class PerfilDniDetailsPage extends StatelessWidget {
   final _auth = Get.find<AuthController>();
-  final _conX = Get.put(PerfilDatosController());
+  final _appX = Get.find<AppPrefsController>();
+  final _conX = Get.put(PerfilDniDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +21,12 @@ class PerfilDatosPage extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            SliverContainer<PerfilDatosController>(
+            SliverContainer<PerfilDniDetailsController>(
               gbAppbarId: _conX.gbAppbar,
               scrollController: _conX.scrollController,
               type: _appX.type,
-              title: 'Mis datos',
-              subtitle: 'Datos personales del conductor',
+              title: 'Dni',
+              subtitle: 'Fotos del dni del conductor',
               onBack: () async {
                 if (await _conX.handleBack()) Get.back();
               },
@@ -36,31 +34,32 @@ class PerfilDatosPage extends StatelessWidget {
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
+                    children: [
                       Expanded(
                         child: Content(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              SizedBox(
-                                height: _appX.type == AppType.passenger
-                                    ? akContentPadding
-                                    : 0.0,
-                              ),
-                              GetBuilder<PerfilDatosController>(
-                                id: _conX.gbPhoto,
-                                builder: (_) => _HeaderPhotoName(
+                              SizedBox(height: akContentPadding),
+                              GetBuilder<PerfilDniDetailsController>(
+                                id: _conX.gbDni,
+                                builder: (_) => _HeaderDni(
                                   auth: _auth,
                                 ),
                               ),
-                              SizedBox(height: 10.0),
+                              SizedBox(height: 20.0),
+                              GetBuilder<PerfilDniDetailsController>(
+                                id: _conX.gbDniReverso,
+                                builder: (_) => _HeaderDniReverso(
+                                  auth: _auth,
+                                ),
+                              ),
                               StylusCard(
-                                title: 'PERSONAL',
+                                title: 'Actualizar',
                                 items: [
                                   StylusCardItem(
                                     icon: Icons.camera_alt_rounded,
-                                    text: 'Cambiar foto de perfil',
+                                    text: 'Cambiar foto de dni',
                                     onTap: () {
                                       _showDialogPhoto(
                                         onCameraTap: () => _conX
@@ -72,77 +71,20 @@ class PerfilDatosPage extends StatelessWidget {
                                   ),
                                   StylusCardItem(
                                     icon: Icons.camera_alt_rounded,
-                                    text: 'foto de dni',
-                                    onTap: _conX.onDniChangeTap,
-                                  ),
-                                  StylusCardItem(
-                                    icon: Icons.mail_rounded,
-                                    text: _auth.getUser?.email,
-                                    textOverflow: TextOverflow.ellipsis,
-                                    onTap: _conX.onEmailChangeTap,
-                                  ),
-                                  StylusCardItem(
-                                    icon: Icons.lock_rounded,
-                                    text: 'Cambiar contraseña',
-                                    onTap: _conX.onButtonPasswordChangeTap,
-                                  ),
-                                ],
-                              ),
-                              StylusCard(
-                                title: 'LICENCIA',
-                                items: [
-                                  StylusCardItem(
-                                    icon: Icons.document_scanner_rounded,
-                                    text: 'Licencia de conducir',
+                                    text: 'Cambiar foto de dni Reverso',
                                     onTap: () {
-                                      Get.toNamed(AppRoutes.PERFIL_LICENCIA);
-                                    },
-                                  ),
-                                ],
-                              ),
-                              StylusCard(
-                                title: 'DOCUMENTOS',
-                                items: [
-                                  StylusCardItem(
-                                    icon: Icons.document_scanner_rounded,
-                                    text: 'Actualizar info de auto',
-                                    onTap: () {
-                                      Get.toNamed(
-                                        AppRoutes.REQUISITOS,
-                                        arguments: RequisitosArguments(
-                                          enableBack: true,
-                                        ),
+                                      _showDialogPhoto(
+                                        onCameraTap: () =>
+                                            _conX.onUserSelectUploadDniReverse(
+                                                mode: 1),
+                                        onGalleryTap: () =>
+                                            _conX.onUserSelectUploadDniReverse(
+                                                mode: 2),
                                       );
                                     },
                                   ),
                                 ],
                               ),
-                              /* StylusCard(
-                                title: 'CALIFICACIÓN',
-                                items: [
-                                  StylusCardItem(
-                                    icon: Icons.star_rate_rounded,
-                                    text: 'Mi calificación',
-                                  ),
-                                ],
-                              ), */
-                              StylusCard(
-                                title: 'APLICACIÓN',
-                                items: [
-                                  /* StylusCardItem(
-                                    icon: Icons.settings_rounded,
-                                    text: 'Preferencias',
-                                  ), */
-                                  StylusCardItem(
-                                    icon: Icons.logout_rounded,
-                                    text: 'Cerrar sesión',
-                                    onTap: () {
-                                      _auth.logout();
-                                    },
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20.0),
                             ],
                           ),
                         ),
@@ -216,14 +158,12 @@ class PerfilDatosPage extends StatelessWidget {
       onGalleryTap?.call();
     }
   }
-
-
 }
 
-class _HeaderPhotoName extends StatelessWidget {
+class _HeaderDni extends StatelessWidget {
   final AuthController auth;
 
-  _HeaderPhotoName({
+  _HeaderDni({
     Key? key,
     required this.auth,
   }) : super(key: key);
@@ -238,17 +178,17 @@ class _HeaderPhotoName extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                if (auth.backendUser?.foto != null) {
+                if (auth.backendUser?.dni != null) {
                   Get.toNamed(AppRoutes.REQUISITOS_IMAGEN,
                       arguments: RequisitosImagenArguments(
-                        title: 'Foto de perfil',
-                        imageB64orUrl: auth.backendUser!.foto! +
+                        title: 'Foto de dni',
+                        imageB64orUrl: auth.backendUser!.dni! +
                             '?v=${auth.userPhotoVersion}',
                       ));
                 }
               },
               child: PhotoUser(
-                avatarUrl: auth.backendUser?.foto ?? '',
+                avatarUrl: auth.backendUser?.dni ?? '',
                 photoVersion: auth.userPhotoVersion,
                 size: Get.width * 0.20,
               ),
@@ -257,9 +197,58 @@ class _HeaderPhotoName extends StatelessWidget {
         ),
         SizedBox(height: 15.0),
         AkText(
-          Helpers.nameFormatCase((auth.backendUser?.nombres ?? '') +
-              ' ' +
-              (auth.backendUser?.apellidos ?? '')),
+          Helpers.nameFormatCase('Foto de Dni'),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: akTitleColor,
+            fontSize: akFontSize + 5.0,
+          ),
+        ),
+        SizedBox(height: 15.0),
+      ],
+    );
+  }
+}
+
+class _HeaderDniReverso extends StatelessWidget {
+  final AuthController auth;
+
+  _HeaderDniReverso({
+    Key? key,
+    required this.auth,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (auth.backendUser?.dniReverso != null) {
+                  Get.toNamed(AppRoutes.REQUISITOS_IMAGEN,
+                      arguments: RequisitosImagenArguments(
+                        title: 'Foto de dni reverso',
+                        imageB64orUrl: auth.backendUser!.dniReverso! +
+                            '?v=${auth.userPhotoVersion}',
+                      ));
+                }
+              },
+              child: PhotoUser(
+                avatarUrl: auth.backendUser?.dniReverso ?? '',
+                photoVersion: auth.userPhotoVersion,
+                size: Get.width * 0.20,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 15.0),
+        AkText(
+          Helpers.nameFormatCase('Foto de DNI REVERSO'),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w500,
