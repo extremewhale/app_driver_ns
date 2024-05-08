@@ -30,7 +30,7 @@ class SecureEmailController extends GetxController {
 
   late SecureEmailController _self;
 
-  final _authProvider = AuthProvider();
+  final _authProvider = AuthProviderns();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailCtlr = TextEditingController();

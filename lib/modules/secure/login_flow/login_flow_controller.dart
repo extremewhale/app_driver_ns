@@ -2,6 +2,7 @@ import 'package:app_driver_ns/data/models/cliente.dart';
 import 'package:app_driver_ns/data/models/conductor.dart';
 import 'package:app_driver_ns/data/models/firebase_user_info.dart';
 import 'package:app_driver_ns/data/providers/auth_provider.dart';
+
 import 'package:app_driver_ns/data/providers/cliente_provider.dart';
 import 'package:app_driver_ns/data/providers/conductor_provider.dart';
 import 'package:app_driver_ns/modules/auth/auth_controller.dart';
@@ -23,7 +24,7 @@ class LoginFlowController extends GetxController {
   late LoginFlowController _self;
   final _authX = Get.find<AuthController>();
 
-  final _authProvider = AuthProvider();
+  final _authProvider = AuthProviderns();
   final _conductorProvider = ConductorProvider();
   final _clienteProvider = ClienteProvider();
 
@@ -241,8 +242,7 @@ class LoginFlowController extends GetxController {
         await _authX.auth
             .createUserWithEmailAndPassword(email: email, password: password);
       } else {
-        await _authX
-            .signInWithEmailPassword(email: email, password: password);
+        await _authX.signInWithEmailPassword(email: email, password: password);
       }
     } on FirebaseAuthException catch (e) {
       loading.value = false;

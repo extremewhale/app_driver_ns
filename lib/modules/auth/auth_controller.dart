@@ -22,7 +22,7 @@ class AuthController extends GetxController {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _authProvider = AuthProvider();
+  final _authProvider = AuthProviderns();
   final _conductorProvider = ConductorProvider();
   final _loginProvider = LoginProvider();
 

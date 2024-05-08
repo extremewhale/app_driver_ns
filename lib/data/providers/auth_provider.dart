@@ -3,7 +3,7 @@ import 'package:app_driver_ns/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/instance_manager.dart';
 
-class AuthProvider {
+class AuthProviderns {
   final DioClient _dioClient = Get.find<DioClient>();
 
   final String _endpoint = '/auth';
